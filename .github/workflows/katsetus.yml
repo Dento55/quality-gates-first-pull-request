@@ -1,0 +1,24 @@
+name: katsetus1
+run-name: Katsetus- from user @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+   
+
+env:
+  UAT_TOMCAT: /home/ec2-user/tomcat/apache-tomcat-9.0.71/webapps
+  UAT_PORT: 22
+
+jobs:
+  check_env: 
+    runs-on: ubuntu-latest
+    environment: UAT
+    
+    steps: 
+      - name: Annotate PR
+        uses: tau-github-actions-for-testing/tau-own-action-pull-request@main
+        with:
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          pr_number: ${{ github.event.number }}
+          token: ${{ secrets.PAT_TOKEN }}
